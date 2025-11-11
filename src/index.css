@@ -1,0 +1,153 @@
+/* =======================
+   Fuentes globales
+======================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* =======================
+   Activar Tailwind v4
+======================= */
+@import "tailwindcss";
+
+/* =======================
+   Paleta personalizada (Tailwind v4)
+======================= */
+@theme {
+  --color-accent-green: #00DC82;
+  --color-accent-blue:  #3B82F6;
+  --color-dark:         #0F1419;
+  --color-dark-secondary:#1A1F28;
+  --color-dark-card:    #1E2530;
+  --color-text-secondary:#94A3B8;
+}
+
+/* =======================
+   Estilos globales base
+======================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-dark);
+  color: #FFFFFF;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* =======================
+   Scrollbar personalizado
+======================= */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-dark-secondary); }
+::-webkit-scrollbar-thumb { background: var(--color-accent-green); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #00b86a; }
+
+/* =======================
+   UTILIDADES PERSONALIZADAS
+======================= */
+@layer utilities {
+  .text-gradient {
+    @apply bg-linear-to-r from-accent-green to-accent-blue bg-clip-text text-transparent;
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background-image:
+      linear-gradient(var(--color-dark-card), var(--color-dark-card)),
+      linear-gradient(135deg, var(--color-accent-green), var(--color-accent-blue));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .shadow-green-glow { box-shadow: 0 0 30px rgba(0, 220, 130, 0.3); }
+  .shadow-blue-glow  { box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
+}
+
+/* =======================
+   COMPONENTES PERSONALIZADOS
+======================= */
+@layer components {
+  .container-custom { @apply max-w-7xl mx-auto px-6 lg:px-8; }
+
+  .section-padding  { @apply py-20 lg:py-32; }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-accent-green text-dark font-semibold rounded-lg
+           transition-all duration-300 hover:scale-105;
+  }
+  /* hover con CSS nativo para evitar error de @apply */
+  .btn-primary:hover { 
+    opacity: 0.9;
+    box-shadow: 0 0 30px rgba(0, 220, 130, 0.3); 
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border border-accent-green text-accent-green font-semibold
+           rounded-lg hover:bg-accent-green hover:text-dark
+           transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-dark-card border border-gray-800 rounded-2xl p-6
+           transition-all duration-300 hover:border-accent-green
+           hover:-translate-y-2;
+  }
+  /* hover con CSS nativo para evitar error de @apply */
+  .card:hover { box-shadow: 0 0 30px rgba(0, 220, 130, 0.3); }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-dark-secondary border border-gray-800
+           rounded-lg text-white placeholder:text-text-secondary
+           focus:outline-none focus:border-accent-green transition-colors;
+  }
+
+  .section-title    { @apply text-4xl lg:text-5xl font-bold mb-4 tracking-tight; }
+  .section-subtitle { @apply text-lg text-text-secondary mb-12; }
+}
+
+/* =======================
+   ANIMACIONES
+======================= */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+.animate-float    { animation: float 3s ease-in-out infinite; }
+
+/* =======================
+   GRADIENTES Y FONDOS
+======================= */
+.gradient-hero    { background: linear-gradient(135deg, #0F1419 0%, #1A3A2E 100%); }
+.gradient-section { background: linear-gradient(135deg, #1A1F28 0%, #0F1419 100%); }
+
+/* =======================
+   SELECCIÓN DE TEXTO
+======================= */
+::selection      { background-color: var(--color-accent-green); color: var(--color-dark); }
+::-moz-selection { background-color: var(--color-accent-green); color: var(--color-dark); }
+
+/* =======================
+   ESTADOS DE FOCO
+======================= */
+button:focus, a:focus, input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--color-accent-green);
+  outline-offset: 2px;
+}
+
+/* =======================
+   ESTADO DE CARGA
+======================= */
+.loading { @apply opacity-50 pointer-events-none; }
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+  .section-padding { @apply py-16; }
+  .section-title   { @apply text-3xl; }
+}
